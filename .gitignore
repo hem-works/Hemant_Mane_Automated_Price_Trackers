@@ -1,0 +1,16 @@
+# Environment variables
+.env
+
+# Database
+instance/
+*.db
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Playwright
+amazon_page.html
+
+# Virtual Environment
+env/

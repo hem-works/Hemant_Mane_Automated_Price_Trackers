@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Alerts | Price Tracker</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI',Arial,sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+        }
+
+        /* ===========================
+                NAVBAR
+        =========================== */
+
+        .navbar{
+
+            background:#2e7d32;
+
+            color:white;
+
+            padding:20px 40px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            box-shadow:0 3px 12px rgba(0,0,0,.15);
+
+        }
+
+        .navbar h2{
+
+            font-size:28px;
+
+        }
+
+        .nav-links{
+
+            display:flex;
+
+            gap:15px;
+
+            align-items:center;
+
+        }
+
+        .nav-links a{
+
+            color:white;
+
+            text-decoration:none;
+
+            padding:10px 18px;
+
+            border-radius:8px;
+
+            font-weight:600;
+
+            transition:.3s;
+
+        }
+
+        .nav-links a:hover{
+
+            background:white;
+
+            color:#2e7d32;
+
+        }
+
+        /* ===========================
+                PAGE
+        =========================== */
+
+        .container{
+
+            width:92%;
+
+            max-width:1300px;
+
+            margin:35px auto;
+
+        }
+
+        /* ===========================
+            TITLE
+        =========================== */
+
+        .page-title{
+
+            font-size:34px;
+
+            color:#333;
+
+            margin-bottom:25px;
+
+        }
+
+        /* ===========================
+            STATS
+        =========================== */
+
+        .stats{
+
+            display:flex;
+
+            gap:20px;
+
+            flex-wrap:wrap;
+
+            margin-bottom:30px;
+
+        }
+
+        .stat-card{
+
+            flex:1;
+
+            min-width:220px;
+
+            background:white;
+
+            padding:28px;
+
+            border-radius:16px;
+
+            text-align:center;
+
+            box-shadow:0 8px 20px rgba(0,0,0,.10);
+
+            transition:.3s;
+
+        }
+
+        .stat-card:hover{
+
+            transform:translateY(-5px);
+
+            box-shadow:0 18px 35px rgba(0,0,0,.15);
+
+        }
+
+        .stat-card h3{
+
+            color:#666;
+
+            margin-bottom:12px;
+
+            font-size:18px;
+
+        }
+
+        .stat-card h1{
+
+            color:#2e7d32;
+
+            font-size:40px;
+
+        }
+
+        /* ===========================
+            CARD
+        =========================== */
+
+        .card{
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:18px;
+
+            box-shadow:0 8px 20px rgba(0,0,0,.10);
+
+            transition:.3s;
+
+        }
+
+        .card:hover{
+
+            transform:translateY(-4px);
+
+            box-shadow:0 18px 35px rgba(0,0,0,.15);
+
+        }
+
+        /* ===========================
+            SEARCH
+        =========================== */
+
+        .search-box{
+
+            width:100%;
+
+            padding:14px;
+
+            border:1px solid #ddd;
+
+            border-radius:10px;
+
+            margin-bottom:25px;
+
+            font-size:15px;
+
+        }
+
+        /* ===========================
+            TABLE
+        =========================== */
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            overflow:hidden;
+
+            border-radius:12px;
+
+        }
+
+        thead{
+
+            background:#2e7d32;
+
+            color:white;
+
+        }
+
+        th{
+
+            padding:18px;
+
+            text-align:left;
+
+            font-size:16px;
+
+        }
+
+        td{
+
+            padding:18px;
+
+            border-bottom:1px solid #eee;
+
+            vertical-align:middle;
+
+        }
+
+        tbody tr{
+
+            transition:.25s;
+
+        }
+
+        tbody tr:hover{
+
+            background:#f8f8f8;
+
+        }
+
+        .product{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:15px;
+
+        }
+
+        .product img{
+
+            width:65px;
+
+            height:65px;
+
+            object-fit:contain;
+
+            border-radius:10px;
+
+            border:1px solid #ddd;
+
+            background:white;
+
+            padding:5px;
+
+        }
+
+        .product-name{
+
+            font-weight:600;
+
+            color:#333;
+
+        }
+
+        .price{
+
+            color:#2e7d32;
+
+            font-weight:bold;
+
+            font-size:17px;
+
+        }
+
+        .status{
+
+            display:inline-block;
+
+            background:#d4edda;
+
+            color:#28a745;
+
+            padding:8px 15px;
+
+            border-radius:20px;
+
+            font-weight:bold;
+
+            font-size:14px;
+
+        }
+
+        .back-btn{
+
+            display:inline-flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            padding:12px 22px;
+
+            background:#1976d2;
+
+            color:white;
+
+            text-decoration:none;
+
+            border-radius:10px;
+
+            font-weight:bold;
+
+            margin-top:30px;
+
+            transition:.3s;
+
+        }
+
+        .back-btn:hover{
+
+            transform:translateY(-3px);
+
+            background:#125ca1;
+
+        }
+
+        .empty{
+
+            text-align:center;
+
+            padding:60px;
+
+            color:#666;
+
+        }
+
+        .empty h2{
+
+            margin-top:15px;
+
+            margin-bottom:10px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>📦 Price Tracker</h2>
+
+    <div class="nav-links">
+
+        <a href="/dashboard">🏠 Dashboard</a>
+
+        <a href="/add-product">➕ Add Product</a>
+
+        <a href="/alerts">🔔 Alerts</a>
+
+        <a href="/logout">👤 Logout</a>
+
+    </div>
+
+</div>
+
+<div class="container">
+
+<h1 class="page-title">
+
+    🔔 Alerts Log
+
+</h1>
+
+<div class="stats">
+
+    <div class="stat-card">
+
+        <h3>Total Alerts</h3>
+
+        <h1>{{ alerts|length }}</h1>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h3>Email Sent</h3>
+
+        <h1>{{ alerts|length }}</h1>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+<input
+
+type="text"
+
+class="search-box"
+
+placeholder="Search alerts (UI only)...">
+
+{% if alerts %}
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Product</th>
+
+<th>Alert Price</th>
+
+<th>Target Price</th>
+
+<th>Date</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+
+
+{% for alert in alerts %}
+
+    <tr>
+
+        <td>
+
+            {{ alert.product.product_name }}
+
+        </td>
+
+        <td>
+
+            ₹{{ alert.price_at_alert }}
+
+        </td>
+
+        <td>
+
+            ₹{{ alert.product.target_price }}
+
+        </td>
+
+        <td>
+
+            {{ alert.sent_at.strftime('%d %b %Y %I:%M %p') }}
+
+        </td>
+
+        <td>
+
+            <span class="status">
+
+                 ✅ Email Sent
+
+            </span>
+
+        </td>
+
+    </tr>
+
+    {% endfor %}
+
+</tbody>
+
+</table>
+
+
+{% else %}
+
+<tr>
+
+    <td colspan="5">
+
+        <div class="empty-state">
+
+            <h3>No Alerts Yet</h3>
+
+            <p>
+
+                Alerts will appear here when a product reaches its target price.
+
+            </p>
+
+        </div>
+
+    </td>
+
+</tr>
+
+{% endif %}
+
+<a href="/dashboard" class="back-btn">
+
+    ← Back to Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
+
+
+

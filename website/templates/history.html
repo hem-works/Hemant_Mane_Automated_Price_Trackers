@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Price History | Price Tracker</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI', Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+        }
+
+        /* =========================
+                NAVBAR
+        ========================= */
+
+        .navbar{
+
+            background:#2e7d32;
+            color:white;
+
+            padding:20px 40px;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            box-shadow:0 3px 12px rgba(0,0,0,.15);
+
+        }
+
+        .navbar h2{
+            font-size:28px;
+        }
+
+        .nav-links{
+
+            display:flex;
+            gap:15px;
+
+        }
+
+        .nav-links a{
+
+            color:white;
+            text-decoration:none;
+
+            padding:10px 18px;
+
+            border-radius:8px;
+
+            font-weight:600;
+
+            transition:.3s;
+
+        }
+
+        .nav-links a:hover{
+
+            background:white;
+            color:#2e7d32;
+
+        }
+
+        /* =========================
+                PAGE
+        ========================= */
+
+        .container{
+
+            width:92%;
+            max-width:1200px;
+
+            margin:35px auto;
+
+        }
+
+        .page-title{
+
+            font-size:34px;
+
+            color:#333;
+
+            margin-bottom:25px;
+
+        }
+
+        /* =========================
+                CARD
+        ========================= */
+
+        .card{
+
+            background:white;
+
+            padding:30px;
+
+            border-radius:18px;
+
+            box-shadow:0 10px 25px rgba(0,0,0,.10);
+
+            transition:.3s;
+
+        }
+
+        .card:hover{
+
+            transform:translateY(-4px);
+
+            box-shadow:0 18px 35px rgba(0,0,0,.15);
+
+        }
+
+        /* =========================
+                TABLE
+        ========================= */
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            margin-top:20px;
+
+            overflow:hidden;
+
+            border-radius:12px;
+
+        }
+
+        thead{
+
+            background:#2e7d32;
+
+            color:white;
+
+        }
+
+        th{
+
+            padding:16px;
+
+            text-align:left;
+
+            font-size:16px;
+
+        }
+
+        td{
+
+            padding:16px;
+
+            border-bottom:1px solid #eee;
+
+        }
+
+        tbody tr{
+
+            transition:.25s;
+
+        }
+
+        tbody tr:hover{
+
+            background:#f8f8f8;
+
+        }
+
+        .price{
+
+            color:#2e7d32;
+
+            font-weight:bold;
+
+        }
+
+        .date{
+
+            color:#666;
+
+        }
+
+        /* =========================
+                EMPTY STATE
+        ========================= */
+
+        .empty{
+
+            text-align:center;
+
+            padding:60px;
+
+            color:#666;
+
+        }
+
+        .empty h2{
+
+            margin-bottom:15px;
+
+        }
+
+        /* =========================
+                BUTTON
+        ========================= */
+
+        .back-btn{
+
+            display:inline-flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            padding:12px 22px;
+
+            margin-top:30px;
+
+            background:#1976d2;
+
+            color:white;
+
+            text-decoration:none;
+
+            border-radius:10px;
+
+            font-weight:bold;
+
+            transition:.3s;
+
+        }
+
+        .back-btn:hover{
+
+            background:#125ca1;
+
+            transform:translateY(-3px);
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<div class="navbar">
+
+    <h2>📦 Price Tracker</h2>
+
+    <div class="nav-links">
+
+        <a href="/dashboard">🏠 Dashboard</a>
+
+        <a href="/alerts">🔔 Alerts</a>
+
+        <a href="/add-product">➕ Add Product</a>
+
+        <a href="/logout">👤 Logout</a>
+
+    </div>
+
+</div>
+
+<!-- ================= CONTENT ================= -->
+
+<div class="container">
+
+    <h1 class="page-title">
+
+        📈 Price History
+
+    </h1>
+
+    <div class="card">
+
+        {% if history %}
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date & Time</th>
+
+                    <th>Price</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for record in history %}
+
+                <tr>
+
+                    <td class="date">
+
+                        {{ record.scraped_at.strftime('%d %b %Y %I:%M %p') }}
+
+                    </td>
+
+                    <td class="price">
+
+                        ₹{{ record.price }}
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        {% else %}
+
+        <div class="empty">
+
+            <h2>📭 No Price History</h2>
+
+            <p>
+
+                Price history will appear here after the scraper runs.
+
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        <a href="/dashboard" class="back-btn">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
