@@ -1,3 +1,12 @@
+## 🚀 Live Demo
+
+Coming Soon
+
+(Currently under development.)
+
+## 📸 Project Preview
+
+
 # 📦 Automated Price Tracker
 
 An intelligent **Amazon Price Tracker** built with **Flask**, **Playwright**, **SQLite**, and **APScheduler** that automatically monitors product prices and sends email alerts whenever the price drops below your target price.
@@ -210,7 +219,7 @@ SQLite Database Tables
 Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/price-tracker.git
+git clone https://github.com/hem-works/Hemant_Mane_Automated_Price_Trackers.git
 ```
 
 Move into the project
