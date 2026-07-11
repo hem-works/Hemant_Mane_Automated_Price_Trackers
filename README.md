@@ -112,7 +112,7 @@ The dashboard displays all tracked products along with statistics.
 
 Users can add any Amazon product URL and set a target price.
 
-![Add Product](screenshots/add-product.png)
+![Add Product](screenshots/add product.png)
 
 ---
 
