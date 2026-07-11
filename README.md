@@ -30,46 +30,24 @@ This project allows users to:
 
 # ✨ Features
 
-✅ User Registration & Login
+Marketplace Support
+• Flipkart
+• Amazon Global
 
-✅ Secure Password Authentication
+Notifications
+• Telegram
+• WhatsApp
 
-✅ Add Amazon Products
+Performance
+• Redis
+• Celery
 
-✅ Automatic Product Information Extraction
+Deployment
+• Docker
+• PostgreSQL
 
-- Product Title
-- Current Price
-- Product Image
-
-✅ Automatic Price Tracking
-
-- APScheduler checks prices periodically
-
-✅ Price History Storage
-
-✅ Interactive Price History Chart
-
-✅ Product Statistics
-
-- Current Price
-- Lowest Price
-- Highest Price
-- Average Price
-
-✅ Email Notifications
-
-- Automatic Gmail alerts
-
-✅ Export Price History to CSV
-
-✅ Dashboard with Product Cards
-
-✅ Alerts Log
-
-✅ Secure Environment Variables using .env
-
----
+AI Features
+• Price Prediction---
 
 # 🛠 Tech Stack
 
