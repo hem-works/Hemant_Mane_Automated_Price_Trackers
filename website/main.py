@@ -3,7 +3,8 @@ from flask import (
     render_template,
     request,
     redirect,
-    session
+    session,
+    url_for
 )
 from flask import send_file
 import csv
@@ -109,6 +110,12 @@ class TrackedProduct(db.Model):
         default="Active"
     )
 
+    alerts = db.relationship(
+        "AlertSent",
+        back_populates="product",
+        cascade="all, delete-orphan"
+    )
+
     image_url = db.Column(db.String(1000))
 
     price_history = db.relationship(
@@ -172,7 +179,7 @@ class AlertSent(db.Model):
 
     product = db.relationship(
         "TrackedProduct",
-        backref="alerts"
+        back_populates="alerts"
     )
 
 
@@ -262,41 +269,12 @@ def check_prices():
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return redirect(url_for("login"))
 
 # =====================
 # TRACK PRODUCT
 # =====================
 
-@app.route("/track", methods=["POST"])
-def track():
-
-    product_url = request.form.get("url")
-
-    if not product_url:
-        return render_template(
-            "index.html",
-            error="Please enter a product URL"
-        )
-
-    product_data = get_product_details(product_url)
-
-    price = product_data["price"]
-    image_url = product_data["image"]
-
-    if price is None:
-        return render_template(
-            "index.html",
-            error="Could not fetch product price.",
-            url=product_url
-        )
-
-    return render_template(
-        "index.html",
-        price=price,
-        image_url=image_url,
-        url=product_url
-)
 
 # =====================
 # LOGIN
@@ -310,20 +288,28 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        user = User.query.filter_by(
-            email=email
-        ).first()
+        user = User.query.filter_by(email=email).first()
 
-        if user and check_password_hash(user.password, password):
-            
-            session["user_id"] = user.id
+        # Email not found
+        if not user:
 
-            return redirect("/dashboard")
+            return render_template(
+                "login.html",
+                error="No account found with this email. Please register first."
+            )
 
-        return render_template(
-            "login.html",
-            error="Invalid Email or Password"
-        )
+        # Password incorrect
+        if not check_password_hash(user.password, password):
+
+            return render_template(
+                "login.html",
+                error="Incorrect password. Please try again."
+            )
+
+        # Login successful
+        session["user_id"] = user.id
+
+        return redirect("/dashboard")
 
     return render_template("login.html")
 
@@ -711,18 +697,26 @@ def delete_product(id):
 
     product = TrackedProduct.query.get_or_404(id)
 
-
     if product.user_id != session["user_id"]:
         return redirect("/dashboard")
 
+    # Delete all price history
     PriceHistory.query.filter_by(
         product_id=id
     ).delete()
 
+    # Delete all alerts
+    AlertSent.query.filter_by(
+        product_id=id
+    ).delete()
+
+    # Delete the product
     db.session.delete(product)
+
     db.session.commit()
 
     return redirect("/dashboard")
+
 
 # =====================
 # ALERTS PAGE
