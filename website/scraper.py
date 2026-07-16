@@ -55,7 +55,13 @@ def get_product_details(url):
 
         browser = p.chromium.launch(
             headless=True
-            
+            args=[
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+                "--single-process"
+            ]
         )
 
         context = browser.new_context(
