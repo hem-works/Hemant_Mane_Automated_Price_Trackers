@@ -54,8 +54,8 @@ def get_product_details(url):
     with sync_playwright() as p:
 
         browser = p.chromium.launch(
-            headless=True,
-            slow_mo=100
+            headless=True
+            
         )
 
         context = browser.new_context(
