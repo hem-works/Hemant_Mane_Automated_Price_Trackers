@@ -81,11 +81,12 @@ def get_product_details(url):
 
         page.goto(
             url,
-            timeout=60000
+            wait_until="domcontentloaded",
+            timeout=20000
         )
         
 
-        page.wait_for_timeout(1000)
+        page.wait_for_load_state("domcontentloaded")
 
         # ----------------------------------
         # TITLE
