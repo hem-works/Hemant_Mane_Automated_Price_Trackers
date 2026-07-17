@@ -37,7 +37,12 @@ def login_required(route_function):
 # DATABASE CONFIG
 # =====================
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tracker.db"
+import os
+
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+    "DATABASE_URL",
+    "sqlite:///tracker.db"
+)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
