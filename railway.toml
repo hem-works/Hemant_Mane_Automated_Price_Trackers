@@ -1,6 +1,0 @@
-[build]
-builder = "NIXPACKS"
-
-[deploy]
-startCommand = "playwright install chromium && gunicorn website.main:app"
-restartPolicyType = "ON_FAILURE"

@@ -8,6 +8,7 @@ load_dotenv()
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 APP_PASSWORD = os.getenv("APP_PASSWORD")
 
+
 def send_price_alert(receiver_email, product_name, current_price, target_price):
 
     message = EmailMessage()

@@ -10,9 +10,9 @@ from flask import send_file
 import csv
 import io
 from functools import wraps
-from .services.email_service import send_price_alert
+from services.email_service import send_price_alert
 from flask_sqlalchemy import SQLAlchemy
-from .scraper import get_product_details
+from scraper import get_product_details
 from apscheduler.schedulers.background import BackgroundScheduler
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
@@ -814,7 +814,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(
     func=check_prices,
     trigger="interval",
-    minutes=1
+    hours=6
 )
 
 scheduler.start()
